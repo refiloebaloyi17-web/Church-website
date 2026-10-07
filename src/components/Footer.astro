@@ -1,0 +1,12 @@
+---
+import { site } from "../data/site";
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container">
+    <p><strong>{site.name}</strong></p>
+    <p>{site.address}</p>
+    <p>{site.phone} · <a href={`mailto:${site.email}`}>{site.email}</a></p>
+    <p class="small">© {year} {site.name}</p>
+  </div>
+</footer>

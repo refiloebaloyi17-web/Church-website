@@ -1,16 +1,14 @@
----
----
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+---
+<Layout title="Home">
+  <div class="container">
+    <section class="hero">
+      <h1>{site.name}</h1>
+      <p>{site.tagline}</p>
+      <a class="button" href="/services">Plan your visit</a>
+    </section>
+  </div>
+</Layout>
