@@ -9,39 +9,39 @@ export const site = {
     {
       day: "Sunday",
       items: [
-        { time: "9:00 AM - 10:00 AM", name: "Intercession" },
-        { time: "10:30 AM - 13:30 PM", name: "Sunday Service" },
+        { time: "9:00 AM - 10:00 AM ", name: " Intercession" },
+        { time: "10:30 AM - 13:30 PM ", name: "Sunday Service" },
       ],
     },
     {
       day: "Tuesday",
       items: [
-        { time: "17:30 PM", name: "Leadership Service", note: "Online and in person" },
+        { time: "17:30 PM ", name: " Leadership Service", note: "Online and in person" },
       ],
     },
     {
       day: "Wednesday",
       items: [
-        { time: "9:00 AM - 12:00 PM", name: "Fasting & Prayer Service" },
+        { time: "9:00 AM - 12:00 PM ", name: " Fasting & Prayer Service" },
       ],
     },
     {
       day: "Thursday",
       items: [
-        { time: "11:00 AM", name: "Women's Service" },
-        { time: "17:30 PM", name: "Home Prayer" },
+        { time: "11:00 AM ", name: " Women's Service" },
+        { time: "17:30 PM", name: " Home Prayer" },
       ],
     },
     {
       day: "Friday",
       items: [
-        { time: "17:00 PM", name: "Youth Service" },
+        { time: "17:00 PM ", name: " Youth Service" },
       ],
     },
     {
       day: "Saturday",
       items: [
-        { time: "5:00 AM", name: "Morning Intercession" },
+        { time: "5:00 AM ", name: " Morning Intercession" },
       ],
     },
   ],
