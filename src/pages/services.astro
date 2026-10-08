@@ -1,0 +1,56 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+
+const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address)}&output=embed`;
+
+const days = site.services.map((d) => ({
+  day: d.day,
+  items: d.items.map((i) => ({
+    time: i.time,
+    name: i.name,
+    note: "note" in i ? i.note : "",
+  })),
+}));
+---
+<Layout title="Services" description="Service times and location">
+  <div class="container">
+    <h1 class="page-title">Service Times</h1>
+    <p class="lead">You are welcome here, just as you are. Join us at any of our services.</p>
+
+    <div class="cards">
+            {days.map((d) => (
+        <article class="card">
+          <h2 class="card-day-title">{d.day}</h2>
+          <ul class="slots">
+            {d.items.map((i) => (
+              <li>
+                <span class="slot-time">{i.time}</span>
+                <span class="slot-name">{i.name}</span>
+                {i.note && <span class="slot-note">{i.note}</span>}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+
+    <h2 class="section-title">What to expect</h2>
+    <p>
+      Our services include worship, prayer and a message from the Word. Dress comfortably,
+      come as you are, and expect a warm welcome from our team.
+    </p>
+
+    <h2 class="section-title">Find us</h2>
+    <p>{site.address}</p>
+    <div class="map">
+      <iframe
+        title="Map showing the church location"
+        src={mapSrc}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+</Layout>
