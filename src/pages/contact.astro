@@ -1,0 +1,46 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+---
+<Layout title="Contact" description="Get in touch with us">
+  <div class="container">
+    <h1 class="page-title">Contact Us</h1>
+    <p class="lead">We would love to hear from you. Send us a message or a prayer request.</p>
+
+    <div class="contact-grid">
+      <form name="contact" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="bot-field" class="form">
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" required />
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required />
+
+        <label for="phone">Phone (optional)</label>
+        <input id="phone" name="phone" type="tel" />
+
+        <label for="topic">What is this about?</label>
+        <select id="topic" name="topic">
+          <option>General question</option>
+          <option>Prayer request</option>
+          <option>Visiting the church</option>
+          <option>Other</option>
+        </select>
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="6" required></textarea>
+
+        <button class="button" type="submit">Send message</button>
+      </form>
+
+      <aside class="card">
+        <h2 class="card-day-title">Find us</h2>
+        <p>{site.address}</p>
+        <p>{site.phone}</p>
+        <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+      </aside>
+    </div>
+  </div>
+</Layout>
