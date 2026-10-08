@@ -2,9 +2,9 @@
 export const site = {
   name: "Healing Center True Gospel Church",
   tagline: "Your Healing Is Here",
-  address: "Skirilek Section, Lethabong, Rustenburg",
+  address: "5649 Lethabong, Rustenburg, North West, South Africa",
   phone: "011 512 1999",
-  email: "Truegospel@truegospel.org",
+  email: "truegospel.healingcentre@gmail.com",
     services: [
     {
       day: "Sunday",

@@ -1,0 +1,63 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+
+const beliefs = [
+  { title: "The Bible", text: "We believe the Bible is the inspired, authoritative Word of God." },
+  { title: "One God", text: "We believe in one God, eternally existing as Father, Son and Holy Spirit." },
+  { title: "Salvation", text: "We believe salvation is a gift of grace, received by faith in Jesus Christ." },
+  { title: "Healing", text: "We believe God heals today, in body, mind and spirit." },
+  { title: "The Holy Spirit", text: "We believe in the baptism and the ongoing work of the Holy Spirit." },
+  { title: "The Church", text: "We believe in gathering together to worship, pray and serve one another." },
+];
+---
+<Layout title="About" description={`About ${site.name}`}>
+  <div class="container">
+    <h1 class="page-title">About Us</h1>
+    <p class="lead">{site.tagline}</p>
+
+       <h2 class="section-title">Our theme: Arise, Shine</h2>
+    <blockquote class="theme-quote">Isaiah 60</blockquote>
+    <p>
+      Isaiah 60, “Arise, Shine”, calls our church to rise in faith, walk in
+      God’s light, and boldly reflect His glory.
+    </p>
+    <p>
+      This is a season of growth, restoration, favour, and transformation as
+      we trust God to lead us forward.
+    </p>
+    <p>
+      Together, we arise and shine, believing that God’s glory is upon us and
+      His light will shine through our church.
+    </p>
+
+    <h2 class="section-title">Our mission</h2>
+    <p>
+      To bring healing, hope and the true gospel of Jesus Christ to every
+      person who walks through our doors and to our community.
+    </p>
+
+    <h2 class="section-title">What we believe</h2>
+    <div class="cards">
+      {beliefs.map((b) => (
+        <article class="card">
+          <h3 class="card-day-title">{b.title}</h3>
+          <p>{b.text}</p>
+        </article>
+      ))}
+    </div>
+
+    <h2 class="section-title">Our leadership</h2>
+    <div class="cards">
+      <article class="card">
+        <h3 class="card-day-title">Pastor Name</h3>
+        <p class="slot-note">Senior Pastor</p>
+        <p>A short line about the pastor and their calling.</p>
+      </article>
+    </div>
+
+    <p style="margin-top: 2.5rem;">
+      <a class="button" href="/services">Join us this week</a>
+    </p>
+  </div>
+</Layout>
