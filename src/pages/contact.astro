@@ -8,9 +8,12 @@ import { site } from "../data/site";
     <p class="lead">We would love to hear from you. Send us a message or a prayer request.</p>
 
     <div class="contact-grid">
-      <form name="contact" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="bot-field" class="form">
-        <input type="hidden" name="form-name" value="contact" />
-        <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
+    <form method="POST" action="https://api.web3forms.com/submit" class="form">
+        <input type="hidden" name="access_key" value="0e4bfbe6-81cd-4792-ae7c-6a0d721faef4" />
+        <input type="hidden" name="subject" value="New message from the church website" />
+        <input type="hidden" name="from_name" value="Church Website" />
+        <input type="hidden" name="redirect" value="https://healing-center-true-gospel.netlify.app/thanks" />
+        <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" />
 
         <label for="name">Name</label>
         <input id="name" name="name" type="text" required />
@@ -25,7 +28,7 @@ import { site } from "../data/site";
         <select id="topic" name="topic">
           <option>General question</option>
           <option>Prayer request</option>
-          <option>Visiting the church</option>
+          <option>Seeing the Pastor</option>
           <option>Other</option>
         </select>
 
