@@ -92,3 +92,4 @@ main { min-height: 60vh; padding-block: 2.5rem; }
 }
 .form .button { align-self: flex-start; margin-top: 1rem; border: 0; cursor: pointer; font: inherit; font-weight: 600; }
 .hidden { display: none; }
+

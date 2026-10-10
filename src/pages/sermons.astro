@@ -1,0 +1,40 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { sermons } from "../data/sermons";
+
+const list = [...sermons]
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .map((s) => ({
+    ...s,
+    pretty: new Date(s.date + "T00:00:00").toLocaleDateString("en-ZA", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }),
+  }));
+---
+<Layout title="Sermons" description="Watch our latest messages">
+  <div class="container">
+    <h1 class="page-title">Sermons</h1>
+    <p class="lead">Watch or revisit messages from our services.</p>
+
+    <div class="sermon-grid">
+      {list.map((s) => (
+        <article class="sermon">
+          <div class="video">
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${s.youtubeId}`}
+              title={s.title}
+              loading="lazy"
+              allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <h2>{s.title}</h2>
+          <p class="slot-note">{s.speaker} · {s.pretty}</p>
+          <p>{s.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</Layout>
