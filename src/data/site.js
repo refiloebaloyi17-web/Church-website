@@ -63,6 +63,6 @@ export const site = {
     { label: "Departments", href: "/departments" },
     { label: "Gallery", href: "/gallery" },
     { label: "Contact", href: "/contact" },
-    { label: "Offering", href: "/offering" },
+    { label: "Give", href: "/give" },
   ],
 };
