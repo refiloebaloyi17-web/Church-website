@@ -93,3 +93,18 @@ main { min-height: 60vh; padding-block: 2.5rem; }
 .form .button { align-self: flex-start; margin-top: 1rem; border: 0; cursor: pointer; font: inherit; font-weight: 600; }
 .hidden { display: none; }
 
+.sermon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.sermon {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+}
+.sermon h2 { font-size: 1.2rem; margin: 0.75rem 0 0.25rem; }
+.sermon p { margin: 0.25rem 0; }
+.video { position: relative; aspect-ratio: 16 / 9; border-radius: 6px; overflow: hidden; background: #000; }
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
