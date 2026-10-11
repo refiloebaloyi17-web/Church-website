@@ -1,7 +1,18 @@
-
 ---
 import Layout from "../layouts/Layout.astro";
 import { site } from "../data/site";
+
+const sunday = site.services.find((d) => d.day === "Sunday");
+const sundayItems = sunday ? sunday.items : [];
+
+const links = [
+  { title: "Services", text: "Our weekly programme and how to find us.", href: "/services" },
+  { title: "Events", text: "See what is coming up at the church.", href: "/events" },
+  { title: "Sermons", text: "Watch messages from our services.", href: "/sermons" },
+  { title: "Gallery", text: "Moments from our church family.", href: "/gallery" },
+  { title: "Contact", text: "Send a message or a prayer request.", href: "/contact" },
+  { title: "Give", text: "Support the work of the ministry.", href: "/give" },
+];
 ---
 <Layout title="Home">
   <div class="container">
@@ -9,6 +20,52 @@ import { site } from "../data/site";
       <h1>{site.name}</h1>
       <p>{site.tagline}</p>
       <a class="button" href="/services">Plan your visit</a>
+    </section>
+
+    <section class="home-section">
+      <h2 class="section-title">Welcome</h2>
+      <p>
+        We are a family of believers who gather to worship, pray and grow in the
+        Word of God. Whatever you are facing, you are welcome here, just as you are.
+      </p>
+      <blockquote class="theme-quote">Isaiah 60: Arise, Shine</blockquote>
+      <p>
+        <a href="/about">Learn more about us</a>
+      </p>
+    </section>
+
+    <section class="home-section">
+      <h2 class="section-title">Join us on Sunday</h2>
+      <div class="highlight">
+        <ul class="slots">
+          {sundayItems.map((i) => (
+            <li>
+              <span class="slot-time">{i.time}</span>
+              <span class="slot-name">{i.name}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="slot-note">{site.address}</p>
+        <a class="button" href="/services">See the full weekly programme</a>
+      </div>
+    </section>
+
+    <section class="home-section">
+      <h2 class="section-title">Explore</h2>
+      <div class="cards">
+        {links.map((l) => (
+          <a class="card quick" href={l.href}>
+            <h3 class="card-day-title">{l.title}</h3>
+            <p>{l.text}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="hero closing">
+      <h2>Your healing is here</h2>
+      <p>We would love to meet you. Come as you are.</p>
+      <a class="button" href="/contact">Get in touch</a>
     </section>
   </div>
 </Layout>
