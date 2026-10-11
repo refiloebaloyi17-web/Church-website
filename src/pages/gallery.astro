@@ -1,0 +1,57 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+
+const files = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/gallery/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG}",
+  { eager: true }
+);
+
+const images = Object.entries(files).map(([path, mod]) => ({
+  src: mod.default,
+  alt: (path.split("/").pop() ?? "")
+    .replace(/\.[^.]+$/, "")
+    .replace(/[-_]+/g, " "),
+}));
+---
+<Layout title="Gallery" description="Photos from our church family">
+  <div class="container">
+    <h1 class="page-title">Gallery</h1>
+    <p class="lead">Moments from our services and events.</p>
+
+    {images.length === 0 ? (
+      <p>Photos coming soon.</p>
+    ) : (
+      <div class="gallery">
+        {images.map((img) => (
+          <button class="thumb" type="button" data-full={img.src.src} data-alt={img.alt}>
+            <Image src={img.src} alt={img.alt} width={600} height={450} loading="lazy" />
+          </button>
+        ))}
+      </div>
+    )}
+
+    <dialog id="lightbox">
+      <img id="lightbox-img" alt="" />
+      <button id="lightbox-close" type="button">Close</button>
+    </dialog>
+  </div>
+</Layout>
+
+<script>
+  const dialog = document.getElementById("lightbox") as HTMLDialogElement;
+  const big = document.getElementById("lightbox-img") as HTMLImageElement;
+
+  document.querySelectorAll<HTMLButtonElement>(".thumb").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      big.src = btn.dataset.full ?? "";
+      big.alt = btn.dataset.alt ?? "";
+      dialog.showModal();
+    });
+  });
+
+  document.getElementById("lightbox-close")?.addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+</script>
