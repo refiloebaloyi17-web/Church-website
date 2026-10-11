@@ -1,0 +1,76 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+
+const g = site.giving;
+
+const rows = [
+  { label: "Account name", value: g.accountName },
+  { label: "Bank", value: g.bank },
+  { label: "Account type", value: g.accountType },
+  { label: "Account number", value: g.accountNumber, copy: true },
+  { label: "Branch code", value: g.branchCode, copy: true },
+  { label: "Reference", value: g.reference },
+];
+---
+<Layout title="Give" description="Support the work of the church">
+  <div class="container">
+    <h1 class="page-title">Give</h1>
+    <p class="lead">
+      Thank you for your generosity. Your giving supports the work of the ministry
+      and helps us reach our community with hope and healing.
+    </p>
+
+    <div class="give-grid">
+      <section class="card">
+        <h2 class="card-day-title">Give by EFT</h2>
+        <dl class="bank">
+          {rows.map((r) => (
+            <div class="bank-row">
+              <dt>{r.label}</dt>
+              <dd>
+                <span>{r.value}</span>
+                {r.copy && (
+                  <button type="button" class="copy" data-copy={r.value}>Copy</button>
+                )}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <aside class="card">
+        <h2 class="card-day-title">How to give</h2>
+        <ol class="steps">
+          <li>Log in to your banking app.</li>
+          <li>Add the account above as a beneficiary.</li>
+          <li>Use your name and the type of giving (Tithe, Offering or Seed) as the reference.</li>
+          <li>
+            Email your proof of payment to
+            <a href={`mailto:${g.proofEmail}`}>{g.proofEmail}</a>
+            if you would like a record.
+          </li>
+        </ol>
+      </aside>
+    </div>
+
+    <blockquote class="theme-quote">
+      “Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver.” 2 Corinthians 9:7
+    </blockquote>
+  </div>
+</Layout>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>(".copy").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copy ?? "");
+        const old = btn.textContent;
+        btn.textContent = "Copied!";
+        setTimeout(() => (btn.textContent = old), 1500);
+      } catch {
+        btn.textContent = "Press Ctrl+C";
+      }
+    });
+  });
+</script>

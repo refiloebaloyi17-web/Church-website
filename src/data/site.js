@@ -5,6 +5,15 @@ export const site = {
   address: "5649 Lethabong, Rustenburg, North West, South Africa",
   phone: "011 512 1999",
   email: "truegospel.healingcentre@gmail.com",
+    giving: {
+    accountName: "Healing Center True Gospel Church",
+    bank: "First National Bank",
+    accountType: "Savings Account",
+    accountNumber: "00000000000",
+    branchCode: "250655",
+    reference: "Your name + Tithe / Offering / Seed",
+    proofEmail: "info@yourchurch.org",
+  },
     services: [
     {
       day: "Sunday",
@@ -14,9 +23,9 @@ export const site = {
       ],
     },
     {
-      day: "Tuesday",
+      day: "Monday",
       items: [
-        { time: "17:30 PM ", name: " Leadership Service", note: "Online and in person" },
+        { time: "17:30 PM ", name: " Leadership Training ", note: " Online and in person" },
       ],
     },
     {
