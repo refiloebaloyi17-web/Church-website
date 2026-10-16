@@ -289,7 +289,7 @@ body.home main { padding: 0; }
 /* Events */
 .event-list { display: grid; gap: 1.25rem; }
 .event { display: flex; gap: 1.25rem; background: #fff; border: 1px solid var(--border); padding: 1.25rem; }
-.event-date { flex: 0 0 4.5rem; text-align: center; background: var(--oxblood); color: #fff; padding: 0.6rem 0.25rem; align-self: flex-start; }
+.event-date { flex: 0 0 auto; min-width: 4.5rem; text-align: center; background: var(--oxblood); color: #fff; padding: 0.6rem 0.75rem; align-self: flex-start; }
 .event-month { display: block; font-size: 0.85rem; font-weight: 600; }
 .event-day { display: block; font-family: var(--display); font-stretch: 75%; font-size: 2.2rem; font-weight: 800; line-height: 1.1; }
 .event-body h2, .event-body h3 { margin: 0 0 0.25rem; font-size: 1.6rem; }

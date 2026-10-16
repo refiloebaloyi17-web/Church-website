@@ -9,16 +9,26 @@ const sundayTimes = sundayItems.map((i) => i.time).join(" and ");
 const directions = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address)}`;
 
 const today = new Date().toISOString().slice(0, 10);
+const weekday = (d: Date) => d.toLocaleString("en-ZA", { weekday: "long" });
+
 const upcoming = events
-  .filter((e) => e.date >= today)
+  .filter((e) => (e.endDate || e.date) >= today)
   .sort((a, b) => a.date.localeCompare(b.date))
   .slice(0, 3)
   .map((e) => {
     const d = new Date(e.date + "T00:00:00");
+    const end = e.endDate ? new Date(e.endDate + "T00:00:00") : null;
     return {
       ...e,
       month: d.toLocaleString("en-ZA", { month: "short" }),
-      day: d.getDate(),
+      day: end ? `${d.getDate()}-${end.getDate()}` : String(d.getDate()),
+      details: [
+        end ? `${weekday(d)} to ${weekday(end)}` : weekday(d),
+        e.time,
+        e.location,
+      ]
+        .filter(Boolean)
+        .join(", "),
     };
   });
 
@@ -82,7 +92,7 @@ const links = [
               </div>
               <div class="event-body">
                 <h3>{e.title}</h3>
-                <p class="slot-note">{e.time}, {e.location}</p>
+                <p class="slot-note">{e.details}</p>
                 <p>{e.description}</p>
               </div>
             </article>

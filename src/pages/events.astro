@@ -1,0 +1,54 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { events } from "../data/events";
+
+const today = new Date().toISOString().slice(0, 10);
+
+const weekday = (d: Date) => d.toLocaleString("en-ZA", { weekday: "long" });
+
+const upcoming = events
+  .filter((e) => (e.endDate || e.date) >= today)
+  .sort((a, b) => a.date.localeCompare(b.date))
+  .map((e) => {
+    const d = new Date(e.date + "T00:00:00");
+    const end = e.endDate ? new Date(e.endDate + "T00:00:00") : null;
+    return {
+      ...e,
+      month: d.toLocaleString("en-ZA", { month: "short" }),
+      day: end ? `${d.getDate()}-${end.getDate()}` : String(d.getDate()),
+      details: [
+        end ? `${weekday(d)} to ${weekday(end)}` : weekday(d),
+        e.time,
+        e.location,
+      ]
+        .filter(Boolean)
+        .join(", "),
+    };
+  });
+---
+<Layout title="Events" description="Upcoming events at our church">
+  <div class="container">
+    <h1 class="page-title">Events</h1>
+    <p class="lead">Come and be part of what God is doing among us.</p>
+
+    {upcoming.length === 0 ? (
+      <p>No upcoming events right now. Please check back soon.</p>
+    ) : (
+      <div class="event-list">
+        {upcoming.map((e) => (
+          <article class="event">
+            <div class="event-date">
+              <span class="event-month">{e.month}</span>
+              <span class="event-day">{e.day}</span>
+            </div>
+            <div class="event-body">
+              <h2>{e.title}</h2>
+              <p class="slot-note">{e.details}</p>
+              <p>{e.description}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    )}
+  </div>
+</Layout>
