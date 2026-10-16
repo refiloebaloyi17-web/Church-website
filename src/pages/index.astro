@@ -1,71 +1,133 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { site } from "../data/site";
+import { events } from "../data/events";
 
 const sunday = site.services.find((d) => d.day === "Sunday");
 const sundayItems = sunday ? sunday.items : [];
+const sundayTimes = sundayItems.map((i) => i.time).join(" and ");
+const directions = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address)}`;
+
+const today = new Date().toISOString().slice(0, 10);
+const upcoming = events
+  .filter((e) => e.date >= today)
+  .sort((a, b) => a.date.localeCompare(b.date))
+  .slice(0, 3)
+  .map((e) => {
+    const d = new Date(e.date + "T00:00:00");
+    return {
+      ...e,
+      month: d.toLocaleString("en-ZA", { month: "short" }),
+      day: d.getDate(),
+    };
+  });
 
 const links = [
-  { title: "Services", text: "Our weekly programme and how to find us.", href: "/services" },
-  { title: "Events", text: "See what is coming up at the church.", href: "/events" },
-  { title: "Sermons", text: "Watch messages from our services.", href: "/sermons" },
-  { title: "Gallery", text: "Moments from our church family.", href: "/gallery" },
-  { title: "Contact", text: "Send a message or a prayer request.", href: "/contact" },
-  { title: "Give", text: "Support the work of the ministry.", href: "/give" },
+  { title: "About", text: "Our story and what we believe", href: "/about" },
+  { title: "Sermons", text: "Watch and listen", href: "/sermons" },
+  { title: "Gallery", text: "Our church family", href: "/gallery" },
+  { title: "Give", text: "Support the ministry", href: "/give" },
+  { title: "Contact", text: "Send a prayer request", href: "/contact" },
 ];
 ---
-<Layout title="Home">
-  <div class="container">
-    <section class="hero">
-      <h1>{site.name}</h1>
-      <p>{site.tagline}</p>
-      <a class="button" href="/services">Plan your visit</a>
-    </section>
-
-    <section class="home-section">
-      <h2 class="section-title">Welcome</h2>
-      <p>
-        We are a family of believers who gather to worship, pray and grow in the
-        Word of God. Whatever you are facing, you are welcome here, just as you are.
-      </p>
-      <blockquote class="theme-quote">Isaiah 60: Arise, Shine</blockquote>
-      <p>
-        <a href="/about">Learn more about us</a>
-      </p>
-    </section>
-
-    <section class="home-section">
-      <h2 class="section-title">Join us on Sunday</h2>
-      <div class="highlight">
-        <ul class="slots">
-          {sundayItems.map((i) => (
-            <li>
-              <span class="slot-time">{i.time}</span>
-              <span class="slot-name">{i.name}</span>
-            </li>
-          ))}
-        </ul>
-        <p class="slot-note">{site.address}</p>
-        <a class="button" href="/services">See the full weekly programme</a>
+<Layout title="Home" home={true}>
+  <section class="hero-home">
+    <div class="container hero-inner">
+      <h1 class="hero-title">{site.tagline}.</h1>
+      <p class="hero-sub">Join us this Sunday at {sundayTimes}.</p>
+      <div class="hero-actions">
+        <a class="button light" href="/visit">Plan your visit</a>
+        <a class="button ghost" href="/sermons">Watch a sermon</a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="home-section">
-      <h2 class="section-title">Explore</h2>
-      <div class="cards">
-        {links.map((l) => (
-          <a class="card quick" href={l.href}>
-            <h3 class="card-day-title">{l.title}</h3>
-            <p>{l.text}</p>
-          </a>
+  <section class="band band-blood">
+    <div class="container">
+      <h2>This Sunday</h2>
+      <div class="sunday-times">
+        {sundayItems.map((i) => (
+          <div>
+            <p class="time">{i.time}</p>
+            <p class="time-name">{i.name}</p>
+          </div>
         ))}
       </div>
-    </section>
+      <p class="sunday-where">{site.address}. <a href={directions}>Get directions</a></p>
+    </div>
+  </section>
 
-    <section class="hero closing">
-      <h2>Your healing is here</h2>
-      <p>We would love to meet you. Come as you are.</p>
-      <a class="button" href="/contact">Get in touch</a>
+  <section class="band statement">
+    <div class="container">
+      <h2>Arise, shine.</h2>
+      <p>
+        This is a season of growth, restoration, favour and transformation.
+        Together we trust God to lead us forward, believing that His light
+        will shine through our church.
+      </p>
+      <p><a href="/about">Our story and what we believe</a></p>
+    </div>
+  </section>
+
+  {upcoming.length > 0 && (
+    <section class="band band-soft">
+      <div class="container">
+        <h2>Coming up</h2>
+        <div class="event-list">
+          {upcoming.map((e) => (
+            <article class="event">
+              <div class="event-date">
+                <span class="event-month">{e.month}</span>
+                <span class="event-day">{e.day}</span>
+              </div>
+              <div class="event-body">
+                <h3>{e.title}</h3>
+                <p class="slot-note">{e.time}, {e.location}</p>
+                <p>{e.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <p style="margin-top: 1.5rem;"><a class="button" href="/events">See all events</a></p>
+      </div>
     </section>
-  </div>
+  )}
+
+  <section class="band">
+    <div class="container">
+      <h2>Every week</h2>
+      <ul class="week">
+        {site.services.map((d) => (
+          <li class="week-row">
+            <span class="week-day">{d.day}</span>
+            <span>
+              {d.items.map((i) => (
+                <span class="week-item"><strong>{i.time}</strong> {i.name}</span>
+              ))}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="band band-black">
+    <div class="container">
+      <h2>Explore</h2>
+      {links.map((l) => (
+        <a class="big-link" href={l.href}>{l.title} <span>{l.text}</span></a>
+      ))}
+    </div>
+  </section>
+
+  <section class="band band-blood closing">
+    <div class="container">
+      <h2>Come as you are.</h2>
+      <p>Whatever you are facing, there is a seat for you and people who will pray with you.</p>
+      <div class="hero-actions">
+        <a class="button light" href="/visit">Plan your visit</a>
+        <a class="button ghost" href="/contact">Send a prayer request</a>
+      </div>
+    </div>
+  </section>
 </Layout>

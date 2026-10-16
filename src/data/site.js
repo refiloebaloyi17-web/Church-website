@@ -1,68 +1,92 @@
+/** @typedef {{ label: string, href: string }} NavLink */
+
+/** @type {{ label: string, href: string, children: NavLink[] }[]} */
+const nav = [
+  {
+    label: "Visit",
+    href: "/visit",
+    children: [
+      { label: "Plan your visit", href: "/visit" },
+      { label: "Service times", href: "/services" },
+      { label: "Find us", href: "/services#find" },
+    ],
+  },
+  {
+    label: "About",
+    href: "/about",
+    children: [
+      { label: "Our story", href: "/about" },
+      { label: "What we believe", href: "/about#beliefs" },
+      { label: "Leadership", href: "/about#leadership" },
+    ],
+  },
+  {
+    label: "Watch",
+    href: "/sermons",
+    children: [
+      { label: "Sermons", href: "/sermons" },
+      { label: "Gallery", href: "/gallery" },
+    ],
+  },
+  { label: "Events", href: "/events", children: [] },
+  { label: "Contact", href: "/contact", children: [] },
+];
+
+/** @type {{ day: string, items: { time: string, name: string, note?: string }[] }[]} */
+const services = [
+  {
+    day: "Sunday",
+    items: [
+      { time: "9:00 AM", name: "Intercession" },
+      { time: "10:30 AM", name: "Sunday Service" },
+    ],
+  },
+  {
+    day: "Tuesday",
+    items: [{ time: "5:00 PM", name: "Leadership Service", note: "Online and in person" }],
+  },
+  {
+    day: "Wednesday",
+    items: [{ time: "9:00 AM - 12:00 PM", name: "Fasting & Prayer Service" }],
+  },
+  {
+    day: "Thursday",
+    items: [
+      { time: "11:00 AM", name: "Women's Service" },
+      { time: "5:30 PM", name: "Home Prayer" },
+    ],
+  },
+  {
+    day: "Friday",
+    items: [{ time: "5:00 PM", name: "Youth Service" }],
+  },
+  {
+    day: "Saturday",
+    items: [{ time: "5:00 AM", name: "Morning Intercession" }],
+  },
+];
 
 export const site = {
   name: "Healing Center True Gospel Church",
-  tagline: "Your Healing Is Here",
+  tagline: "Your healing is here",
   address: "5649 Lethabong, Rustenburg, North West, South Africa",
-  phone: "011 512 1999",
+  mapQuery: "5649 Lethabong, Rustenburg, North West, South Africa",
+  phone: "012 345 6789",
   email: "truegospel.healingcentre@gmail.com",
-    giving: {
+  social: [
+    { label: "Facebook", href: "" },
+    { label: "Instagram", href: "" },
+    { label: "YouTube", href: "" },
+  ],
+  giving: {
     accountName: "Healing Center True Gospel Church",
     bank: "First National Bank",
-    accountType: "Savings Account",
+    accountType: "Cheque Account",
     accountNumber: "00000000000",
     branchCode: "250655",
     reference: "Your name + Tithe / Offering / Seed",
-    proofEmail: "info@yourchurch.org",
+    proofEmail: "truegospel.healingcentre@gmail.com",
   },
-    services: [
-    {
-      day: "Sunday",
-      items: [
-        { time: "9:00 AM - 10:00 AM ", name: " Intercession" },
-        { time: "10:30 AM - 13:30 PM ", name: "Sunday Service" },
-      ],
-    },
-    {
-      day: "Monday",
-      items: [
-        { time: "17:30 PM ", name: " Leadership Training ", note: " Online and in person" },
-      ],
-    },
-    {
-      day: "Wednesday",
-      items: [
-        { time: "9:00 AM - 12:00 PM ", name: " Fasting & Prayer Service" },
-      ],
-    },
-    {
-      day: "Thursday",
-      items: [
-        { time: "11:00 AM ", name: " Women's Service" },
-        { time: "17:30 PM", name: " Home Prayer" },
-      ],
-    },
-    {
-      day: "Friday",
-      items: [
-        { time: "17:00 PM ", name: " Youth Service" },
-      ],
-    },
-    {
-      day: "Saturday",
-      items: [
-        { time: "5:00 AM ", name: " Morning Intercession" },
-      ],
-    },
-  ],
-  nav: [
-    { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
-    { label: "Services", href: "/services" },
-    { label: "Events", href: "/events" },
-    { label: "Sermons", href: "/sermons" },
-    { label: "Departments", href: "/departments" },
-    { label: "Gallery", href: "/gallery" },
-    { label: "Contact", href: "/contact" },
-    { label: "Give", href: "/give" },
-  ],
+  services,
+  nav,
 };

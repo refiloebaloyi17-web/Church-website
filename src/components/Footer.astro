@@ -1,12 +1,52 @@
 ---
 import { site } from "../data/site";
 const year = new Date().getFullYear();
+const social = site.social.filter((s) => s.href);
+const tel = site.phone.replace(/\s+/g, "");
+const sunday = site.services.find((d) => d.day === "Sunday");
+const sundayTimes = sunday ? sunday.items.map((i) => i.time).join(" and ") : "";
+const quick = [
+  { label: "Plan your visit", href: "/visit" },
+  { label: "Service times", href: "/services" },
+  { label: "Events", href: "/events" },
+  { label: "Sermons", href: "/sermons" },
+  { label: "Give", href: "/give" },
+  { label: "Contact", href: "/contact" },
+];
 ---
 <footer class="site-footer">
-  <div class="container">
-    <p><strong>{site.name}</strong></p>
-    <p>{site.address}</p>
-    <p>{site.phone} · <a href={`mailto:${site.email}`}>{site.email}</a></p>
-    <p class="small">© {year} {site.name}</p>
+  <div class="container footer-grid">
+    <div>
+      <p class="footer-name">{site.name}</p>
+      <p>{site.tagline}.</p>
+      {social.length > 0 && (
+        <ul class="social">
+          {social.map((s) => (
+            <li><a href={s.href} rel="noopener" target="_blank">{s.label}</a></li>
+          ))}
+        </ul>
+      )}
+    </div>
+    <div>
+      <h2 class="footer-h">Visit us</h2>
+      <p>{site.address}</p>
+      {sundayTimes && <p>Sundays at {sundayTimes}</p>}
+    </div>
+    <div>
+      <h2 class="footer-h">Quick links</h2>
+      <ul class="footer-links">
+        {quick.map((q) => (
+          <li><a href={q.href}>{q.label}</a></li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer-h">Contact</h2>
+      <p><a href={`tel:${tel}`}>{site.phone}</a></p>
+      <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+    </div>
+  </div>
+  <div class="container footer-base">
+    <p class="small">© {year} {site.name}. All rights reserved.</p>
   </div>
 </footer>

@@ -1,0 +1,87 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+
+const sunday = site.services.find((d) => d.day === "Sunday");
+const sundayItems = sunday ? sunday.items : [];
+const directions = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address)}`;
+
+const faqs: { q: string; a: string; href?: string; cta?: string }[] = [
+  {
+    q: "What should I wear?",
+    a: "Come as you are. Smart, casual or traditional dress are all welcome here.",
+  },
+  {
+    q: "What happens at a service?",
+    a: "Our services include worship, prayer and a message from the Word of God. You are never put on the spot, and you are welcome to simply watch and listen.",
+  },
+  {
+    q: "When are your services?",
+    a: "We meet several times a week, including Sunday mornings, midweek prayer, and services for women and youth.",
+    href: "/services",
+    cta: "See the full weekly programme",
+  },
+  {
+    q: "Are there services for women and young people?",
+    a: "Yes. Our Women's Service is on Thursdays at 11:00 AM and our Youth Service is on Fridays at 5:00 PM.",
+  },
+  {
+    q: "Can I join a service online?",
+    a: "Our Tuesday leadership service is held online as well as in person. Send us a message and we will share the details.",
+    href: "/contact",
+    cta: "Contact us",
+  },
+  {
+    q: "Can someone pray for me?",
+    a: "Absolutely. You can ask for prayer at any service, or send us a prayer request and our team will pray with you.",
+    href: "/contact",
+    cta: "Send a prayer request",
+  },
+  {
+    q: "How can I give?",
+    a: "You can give by EFT. Our bank details and a short guide are on the Give page.",
+    href: "/give",
+    cta: "Go to the Give page",
+  },
+];
+---
+<Layout title="Plan your visit" description="What to expect when you visit us">
+  <div class="container">
+    <h1 class="page-title">Plan your visit</h1>
+    <p class="lead">
+      We would love to meet you. Here is what to expect and the answers to the
+      questions visitors ask most.
+    </p>
+
+    <div class="visit-grid">
+      <div>
+        <h2 class="section-title first">Questions</h2>
+        <div class="faq">
+          {faqs.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <div class="faq-a">
+                <p>{f.a}</p>
+                {f.href && <p><a href={f.href}>{f.cta}</a></p>}
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+
+      <aside class="card">
+        <h2 class="card-day-title">This Sunday</h2>
+        <ul class="slots">
+          {sundayItems.map((i) => (
+            <li>
+              <span class="slot-time">{i.time}</span>
+              <span class="slot-name">{i.name}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="slot-note" style="margin-top: 1rem;">{site.address}</p>
+        <p style="margin-top: 1rem;"><a class="button" href={directions}>Get directions</a></p>
+      </aside>
+    </div>
+  </div>
+</Layout>

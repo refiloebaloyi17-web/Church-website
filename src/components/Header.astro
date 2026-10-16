@@ -1,16 +1,78 @@
 ---
 import { site } from "../data/site";
-const path = Astro.url.pathname;
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const items = site.nav.map((item) => ({
+  ...item,
+  active: path === item.href || item.children.some((c) => c.href.split("#")[0] === path),
+}));
 ---
 <header class="site-header">
   <div class="container bar">
     <a href="/" class="brand">{site.name}</a>
-    <nav>
-      {site.nav.map((item) => (
-        <a href={item.href} class:list={[{ active: path === item.href }]}>
-          {item.label}
-        </a>
-      ))}
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" aria-label="Main">
+      <ul class="menu">
+        {items.map((item) => (
+          <li class:list={["menu-item", { "has-sub": item.children.length > 0 }]}>
+            <a href={item.href} class:list={[{ active: item.active }]}>{item.label}</a>
+            {item.children.length > 0 && (
+              <>
+                <button class="sub-toggle" type="button" aria-expanded="false" aria-label={`Show ${item.label} menu`}>
+                  <svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
+                    <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" />
+                  </svg>
+                </button>
+                <ul class="submenu">
+                  {item.children.map((c) => (
+                    <li><a href={c.href}>{c.label}</a></li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </li>
+        ))}
+        <li class="menu-give"><a class="button" href="/give">Give</a></li>
+      </ul>
     </nav>
   </div>
 </header>
+
+<script>
+  const header = document.querySelector<HTMLElement>(".site-header");
+  const onScroll = () => header?.classList.toggle("scrolled", window.scrollY > 40);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  const toggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
+  const nav = document.getElementById("site-nav");
+  toggle?.addEventListener("click", () => {
+    const open = nav?.classList.toggle("open") ?? false;
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.textContent = open ? "Close" : "Menu";
+  });
+
+  const closeSubs = () => {
+    document.querySelectorAll(".menu-item.open").forEach((li) => {
+      li.classList.remove("open");
+      li.querySelector(".sub-toggle")?.setAttribute("aria-expanded", "false");
+    });
+  };
+
+  document.querySelectorAll<HTMLButtonElement>(".sub-toggle").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const li = btn.closest(".menu-item");
+      const willOpen = !li?.classList.contains("open");
+      closeSubs();
+      if (willOpen) {
+        li?.classList.add("open");
+        btn.setAttribute("aria-expanded", "true");
+      }
+    });
+  });
+
+  document.addEventListener("click", closeSubs);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeSubs();
+  });
+</script>
