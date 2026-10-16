@@ -1,7 +1,7 @@
 :root {
   --black: #000;
   --oxblood: #6b0f1a;
-  --oxblood-bright: #b3263a;
+  --oxblood-deep: #3d0810;
   --glow: #f2d49b;
   --text: #1c1c1c;
   --muted: #5f5a59;
@@ -69,7 +69,7 @@ body.home .site-header {
   position: fixed; left: 0; right: 0;
   background: transparent; transition: background 0.25s;
 }
-body.home .site-header.scrolled { background: #000; }
+body.home .site-header.scrolled { background: var(--oxblood-deep); }
 
 .site-header .bar {
   display: flex; align-items: center; justify-content: space-between;
@@ -157,9 +157,9 @@ body.home main { padding: 0; }
   min-height: 100vh; min-height: 100svh;
   display: flex; align-items: flex-end; color: #fff;
   background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.88) 100%),
+    linear-gradient(180deg, rgba(107, 15, 26, 0.55) 0%, rgba(61, 8, 16, 0.94) 100%),
     url("/hero.jpg") center / cover no-repeat,
-    #000;
+    var(--oxblood);
 }
 .hero-home::before {
   content: ""; position: absolute; inset: 0; pointer-events: none;
@@ -181,7 +181,7 @@ body.home main { padding: 0; }
 /* ---------- Home: bands ---------- */
 .band { padding-block: clamp(3.5rem, 9vw, 7rem); }
 .band-blood { background: var(--oxblood); color: #fff; }
-.band-black { background: #000; color: #fff; }
+.band-black { background: var(--oxblood-deep); color: #fff; }
 .band-soft { background: var(--soft); }
 .band h2 { font-size: clamp(2.4rem, 7vw, 5rem); text-transform: uppercase; margin-bottom: 1.5rem; }
 .band-blood a { color: #fff; }
@@ -208,12 +208,12 @@ body.home main { padding: 0; }
 
 .big-link {
   display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
-  padding: 1.1rem 0; border-top: 1px solid #3a3a3a;
+  padding: 1.1rem 0; border-top: 1px solid rgba(255, 255, 255, 0.25);
   color: #fff; text-decoration: none;
   font-family: var(--display); font-stretch: 75%; font-weight: 800; text-transform: uppercase;
   font-size: clamp(2.4rem, 8vw, 5.5rem); line-height: 1;
 }
-.big-link:last-child { border-bottom: 1px solid #3a3a3a; }
+.big-link:last-child { border-bottom: 1px solid rgba(255, 255, 255, 0.25); }
 .big-link span {
   font-family: var(--body); font-weight: 400; font-size: 1rem;
   text-transform: none; color: #c9c3c1; text-align: right;

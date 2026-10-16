@@ -1,7 +1,7 @@
 export const events = [
   {
-    title: "Night of Healing",
-    date: "2026-11-14",
+    title: "Women Conference",
+    date: "2026-12-16",
     time: "6:00 PM",
     location: "Healing Center True Gospel Church",
     description: "An evening of worship, prayer and ministry for the sick and broken-hearted.",
