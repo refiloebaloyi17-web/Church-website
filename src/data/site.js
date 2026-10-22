@@ -73,9 +73,9 @@ const services = [
 export const site = {
   name: "Healing Center True Gospel Church",
   tagline: "Your healing is here",
-  address: "5649 Lethabong, Rustenburg, North West, South Africa",
-  mapQuery: "5649 Lethabong, Rustenburg, North West, South Africa",
-  phone: "012 345 6789",
+  address: "True Gospel Church, Cuba Section",
+  mapQuery: "True Gospel Church, Cuba Section",
+  phone: "+27 (81) 273 3341",
   email: "truegospel.healingcentre@gmail.com",
   social: [
     { label: "Facebook", href: "https://www.facebook.com/share/14bYeAAkG77/" },
