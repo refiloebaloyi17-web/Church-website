@@ -41,9 +41,13 @@ const services = [
       { time: "10:30 AM", name: "Sunday Service" },
     ],
   },
+   {
+    day: "Monday",
+    items: [{ time: "5:30 PM", name: "Leardership Trainingit", note: "Online and in person" }],
+  },
   {
     day: "Tuesday",
-    items: [{ time: "5:00 PM", name: "Leadership Service", note: "Online and in person" }],
+    items: [{ time: "5:00 PM", name: "Prophetic Classes", note: "Online and in person" }],
   },
   {
     day: "Wednesday",
@@ -53,7 +57,7 @@ const services = [
     day: "Thursday",
     items: [
       { time: "11:00 AM", name: "Women's Service" },
-      { time: "5:30 PM", name: "Home Prayer" },
+      { time: "5:30 PM", name: "Home Prayers" },
     ],
   },
   {
@@ -62,7 +66,7 @@ const services = [
   },
   {
     day: "Saturday",
-    items: [{ time: "5:00 AM", name: "Morning Intercession" }],
+    items: [{ time: "5:00 AM", name: "General Prayer Meetinng" }],
   },
 ];
 
