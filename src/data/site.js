@@ -41,13 +41,13 @@ const services = [
       { time: "10:30 AM", name: "Sunday Service" },
     ],
   },
-   {
+  {
     day: "Monday",
-    items: [{ time: "5:30 PM", name: "Leardership Trainingit", note: "Online and in person" }],
+    items: [{ time: "5:30 PM", name: "Leadership Training" }],
   },
   {
     day: "Tuesday",
-    items: [{ time: "5:00 PM", name: "Prophetic Classes", note: "Online and in person" }],
+    items: [{ time: "5:30 PM", name: "Prophetic Classes" }],
   },
   {
     day: "Wednesday",
@@ -57,7 +57,7 @@ const services = [
     day: "Thursday",
     items: [
       { time: "11:00 AM", name: "Women's Service" },
-      { time: "5:30 PM", name: "Home Prayers" },
+      { time: "5:30 PM", name: "Home Prayer" },
     ],
   },
   {
@@ -66,7 +66,7 @@ const services = [
   },
   {
     day: "Saturday",
-    items: [{ time: "5:00 AM", name: "General Prayer Meetinng" }],
+    items: [{ time: "5:00 AM", name: "General Prayer Meeting" }],
   },
 ];
 
@@ -78,8 +78,8 @@ export const site = {
   phone: "012 345 6789",
   email: "truegospel.healingcentre@gmail.com",
   social: [
-    { label: "Facebook", href: "" },
-    { label: "Instagram", href: "" },
+    { label: "Facebook", href: "https://www.facebook.com/share/14bYeAAkG77/" },
+    { label: "TikTok", href: "" },
     { label: "YouTube", href: "" },
   ],
   giving: {
