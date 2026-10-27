@@ -4,10 +4,11 @@ import { site } from "../data/site";
 
 const g = site.giving;
 
-const accounts = g.accounts
+const funds = g.accounts
   .filter((a) => !a.hidden)
-  .map((a) => ({
+  .map((a, i) => ({
     ...a,
+    id: `fund-${i}`,
     ready: Boolean(a.accountNumber),
     rows: [
       { label: "Account name", value: a.accountName },
@@ -19,7 +20,13 @@ const accounts = g.accounts
     ].filter((r) => r.value),
   }));
 
-const hasCard = accounts.some((a) => a.payUrl);
+const hasCard = funds.some((f) => f.payUrl);
+
+const methods = [
+  ...(hasCard ? [{ id: "card", label: "Card" }] : []),
+  { id: "eft", label: "Bank transfer (EFT)" },
+  { id: "person", label: "At church" },
+];
 ---
 <Layout title="Give" description="Support the work of the church">
   <div class="container">
@@ -29,68 +36,130 @@ const hasCard = accounts.some((a) => a.payUrl);
       and helps us reach our community with hope and healing.
     </p>
 
-    <div class="cards">
-      {accounts.map((a) => (
-        <section class="card">
-          <h2 class="card-day-title">{a.title}</h2>
-          {a.description && <p class="slot-note give-desc">{a.description}</p>}
-          {a.ready ? (
-            <dl class="bank">
-              {a.rows.map((r) => (
-                <div class="bank-row">
-                  <dt>{r.label}</dt>
-                  <dd>
-                    <span>{r.value}</span>
-                    {r.copy && (
-                      <button type="button" class="copy" data-copy={r.value}>Copy</button>
-                    )}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          ) : (
-            <p>Bank details coming soon.</p>
-          )}
-          {a.payUrl && (
-            <p style="margin-top: 1rem;">
-              <a class="button" href={a.payUrl} target="_blank" rel="noopener">Give by card</a>
-            </p>
-          )}
-        </section>
-      ))}
+    <div class="give" id="give">
+      <fieldset class="give-step">
+        <legend>1. What are you giving to?</legend>
+        <div class="choices">
+          {funds.map((f, i) => (
+            <label class="choice">
+              <input type="radio" name="fund" value={f.id} checked={i === 0} />
+              <span>{f.title}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset class="give-step">
+        <legend>2. How would you like to give?</legend>
+        <div class="choices">
+          {methods.map((m, i) => (
+            <label class="choice">
+              <input type="radio" name="method" value={m.id} checked={i === 0} />
+              <span>{m.label}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <div class="give-panels" aria-live="polite">
+        {funds.map((f) => (
+          <Fragment>
+            {hasCard && (
+              <section class="card give-panel" data-fund={f.id} data-method="card">
+                <h2 class="card-day-title">{f.title} by card</h2>
+                {f.description && <p class="slot-note">{f.description}</p>}
+                {f.payUrl ? (
+                  <>
+                    <p>
+                      You will pay on a secure page run by our payment provider. We never
+                      see or store your card details.
+                    </p>
+                    <p>
+                      <a class="button" href={f.payUrl} target="_blank" rel="noopener">
+                        Continue to secure payment
+                      </a>
+                    </p>
+                  </>
+                ) : (
+                  <p>
+                    Card giving for {f.title} is coming soon. Please use bank transfer or
+                    give at church.
+                  </p>
+                )}
+              </section>
+            )}
+
+            <section class="card give-panel" data-fund={f.id} data-method="eft">
+              <h2 class="card-day-title">{f.title} by bank transfer</h2>
+              {f.description && <p class="slot-note">{f.description}</p>}
+              {f.ready ? (
+                <dl class="bank">
+                  {f.rows.map((r) => (
+                    <div class="bank-row">
+                      <dt>{r.label}</dt>
+                      <dd>
+                        <span>{r.value}</span>
+                        {r.copy && (
+                          <button type="button" class="copy" data-copy={r.value}>Copy</button>
+                        )}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              ) : (
+                <p>Bank details coming soon.</p>
+              )}
+            </section>
+
+            <section class="card give-panel" data-fund={f.id} data-method="person">
+              <h2 class="card-day-title">{f.title} at church</h2>
+              <p>
+                You are welcome to give during any of our services. If you have any
+                questions about giving, speak to a member of our team or
+                <a href="/contact">send us a message</a>.
+              </p>
+            </section>
+          </Fragment>
+        ))}
+      </div>
     </div>
 
-    <h2 class="section-title">How to give</h2>
-    <ol class="steps">
-      <li>Choose the account that matches your giving.</li>
-      <li>Give by EFT: add the account as a beneficiary in your banking app and use your name and the type of giving as the reference.</li>
-      {hasCard && (
-        <li>Give by card: tap <strong>Give by card</strong>. You will pay on a secure page run by our payment provider. We never see or store your card details.</li>
-      )}
-      <li>
-        Email your proof of payment to
-        <a href={`mailto:${g.proofEmail}`}>{g.proofEmail}</a>
-        if you would like a record.
-      </li>
-    </ol>
+    <p class="give-after">
+      Gave by transfer? You are welcome to email your proof of payment to
+      <a href={`mailto:${g.proofEmail}`}>{g.proofEmail}</a> if you would like a record.
+    </p>
 
-    <blockquote class="theme-quote" style="margin-top: 2.5rem;">
+    <blockquote class="theme-quote" style="margin-top: 2rem;">
       “God loves a cheerful giver.” 2 Corinthians 9:7
     </blockquote>
   </div>
 </Layout>
 
 <script>
-  document.querySelectorAll<HTMLButtonElement>(".copy").forEach((btn) => {
-    btn.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(btn.dataset.copy ?? "");
-        const old = btn.textContent;
-        btn.textContent = "Copied!";
-        setTimeout(() => (btn.textContent = old), 1500);
-      } catch {
-        btn.textContent = "Press Ctrl+C";
-      }
+  const root = document.getElementById("give");
+
+  if (root) {
+    const update = () => {
+      const fund = root.querySelector<HTMLInputElement>('input[name="fund"]:checked')?.value;
+      const method = root.querySelector<HTMLInputElement>('input[name="method"]:checked')?.value;
+      root.querySelectorAll<HTMLElement>(".give-panel").forEach((p) => {
+        p.hidden = !(p.dataset.fund === fund && p.dataset.method === method);
+      });
+    };
+    root.addEventListener("change", update);
+    update();
+
+    root.querySelectorAll<HTMLButtonElement>(".copy").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(btn.dataset.copy ?? "");
+          const old = btn.textContent;
+          btn.textContent = "Copied!";
+          setTimeout(() => (btn.textContent = old), 1500);
+        } catch {
+          btn.textContent = "Press Ctrl+C";
+        }
+      });
     });
-  });
+  }
 </script>
