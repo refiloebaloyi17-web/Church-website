@@ -360,3 +360,5 @@ body.home main { padding: 0; }
 
 .give-panels { margin-top: 0.5rem; }
 .give-after { margin-top: 2rem; color: var(--muted); max-width: 40rem; }
+
+.sub-title { font-size: 1.7rem; margin: 2.5rem 0 0.75rem; color: var(--oxblood); }

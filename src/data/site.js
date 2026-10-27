@@ -53,7 +53,15 @@ const services = [
     ],
   },
   { day: "Friday", items: [{ time: "5:00 PM", name: "Youth Service" }] },
-  { day: "Saturday", items: [{ time: "5:00 AM", name: "General Prayer Meeting" }] },
+  {
+    day: "Saturday",
+    items: [
+      { time: "5:00 AM", name: "General Prayer Meeting" },
+      { time: "1:00 PM", name: "Dominion Kids & Junior Youth", note: "On selected Saturdays" },
+      { time: "2:00 PM", name: "Worship Team", note: "On selected Saturdays" },
+      { time: "5:00 PM", name: "Young Adults", note: "On selected Saturdays" },
+    ],
+  },
 ];
 
 const monthly = [
@@ -64,11 +72,12 @@ const monthly = [
   },
 ];
 
-/** @type {{ title: string, description: string, accountName: string, bank: string, accountType: string, accountNumber: string, branchCode: string, reference: string, payUrl: string, hidden: boolean }[]} */
+/** @type {{ title: string, description: string, atChurch: string, accountName: string, bank: string, accountType: string, accountNumber: string, branchCode: string, reference: string, payUrl: string, hidden: boolean }[]} */
 const accounts = [
   {
     title: "Offering",
     description: "Your freewill offering towards the work of the church.",
+    atChurch: "Place your general offering in the baskets at church.",
     accountName: "General Offering",
     bank: "Capitec Bank",
     accountType: "Cheque / Savings",
@@ -81,6 +90,7 @@ const accounts = [
   {
     title: "Tithe",
     description: "Return your tithe to the house of the Lord.",
+    atChurch: "Use a tithe envelope. Envelopes are available at church.",
     accountName: "Tithe & First Fruits",
     bank: "Capitec Bank",
     accountType: "Cheque / Savings",
@@ -93,6 +103,7 @@ const accounts = [
   {
     title: "Building / Projects",
     description: "Help us build and develop the church and its projects.",
+    atChurch: "Use a building offering envelope. Envelopes are available at church.",
     accountName: "Church BUilding Funds",
     bank: "Capitec Bank",
     accountType: "Cheque / Savings",
@@ -105,6 +116,7 @@ const accounts = [
   {
     title: "Special Projects",
     description: "Fixing of musical instruments in the church",
+    atChurch: "Use a projects envelope. Envelopes are available at church.",
     accountName: "Special Projects Fund",
     bank: "Capitec Bank",
     accountType: "Cheque / Savings",
@@ -123,8 +135,8 @@ export const site = {
   vision: "",
   mission:
     "To bring healing, hope and the true gospel of Jesus Christ to every person who walks through our doors and to our community.",
-  address: "5649 True Gospel Street, Cuba Section",
-  mapQuery: "True Gospel Church, 5649 True Gospel Street, Cuba Section, South Africa",
+  address: "5649 True Gospel Street, Cuba Section, Lethabong, 0263",
+  mapQuery: "True Gospel Church, 5649 True Gospel Street, Cuba Section, Lethabong, 0263, South Africa",
   phone: "+27 (81) 273 3341",
   whatsapp: "", // international format, no + or spaces, e.g. 27821234567
   email: "truegospel.healingcentre@gmail.com",

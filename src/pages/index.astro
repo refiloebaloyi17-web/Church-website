@@ -112,7 +112,7 @@ const links = [
             <span class="week-day">{d.day}</span>
             <span>
               {d.items.map((i) => (
-                <span class="week-item"><strong>{i.time}</strong> {i.name}</span>
+                <span class="week-item"><strong>{i.time}</strong> {i.name}{i.note ? ` (${i.note})` : ""}</span>
               ))}
             </span>
           </li>
