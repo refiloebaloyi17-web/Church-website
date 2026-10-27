@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { departments } from "../data/departments";
+---
+<Layout title="Departments" description="Ministries and departments of our church">
+  <div class="container">
+    <h1 class="page-title">Departments</h1>
+    <p class="lead">There is a place for everyone in our church family. Find the group that fits you.</p>
+
+    <div class="cards">
+      {departments.map((d) => (
+        <article class="card">
+          <h2 class="card-day-title">{d.name}</h2>
+          <p class="slot-note">{d.group}</p>
+          <p>{d.description}</p>
+          {d.meets && <p class="slot-time">{d.meets}</p>}
+        </article>
+      ))}
+    </div>
+
+    <p style="margin-top: 2.5rem;">
+      <a class="button" href="/contact">Ask about joining</a>
+    </p>
+  </div>
+</Layout>

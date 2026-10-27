@@ -31,11 +31,23 @@ const beliefs = [
       His light will shine through our church.
     </p>
 
-    <h2 class="section-title">Our mission</h2>
-    <p>
-      To bring healing, hope and the true gospel of Jesus Christ to every
-      person who walks through our doors and to our community.
-    </p>
+       <h2 class="section-title">Who we are</h2>
+       <div class="cards">
+         <article class="card">
+        <h3 class="card-day-title">Our motto</h3>
+        <p>{site.motto || site.tagline}</p>
+      </article>
+      {site.vision && (
+        <article class="card">
+          <h3 class="card-day-title">Our vision</h3>
+          <p>{site.vision}</p>
+        </article>
+      )}
+      <article class="card">
+        <h3 class="card-day-title">Our mission</h3>
+        <p>{site.mission}</p>
+      </article>
+    </div>
 
     <h2 class="section-title" id="beliefs">What we believe</h2>
     <div class="cards">

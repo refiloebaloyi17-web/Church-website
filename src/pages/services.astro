@@ -35,7 +35,20 @@ const days = site.services.map((d) => ({
       ))}
     </div>
 
-    <h2 class="section-title">What to expect</h2>
+        {site.monthly.length > 0 && (
+      <>
+        <h2 class="section-title">Once a month</h2>
+        <div class="cards">
+          {site.monthly.map((m) => (
+            <article class="card">
+              <h3 class="card-day-title">{m.when}</h3>
+              <p class="slot-time">{m.time}</p>
+              <p>{m.name}</p>
+            </article>
+          ))}
+        </div>
+      </>
+    )}
     <p>
       Our services include worship, prayer and a message from the Word. Dress comfortably,
       come as you are, and expect a warm welcome from our team.

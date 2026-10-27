@@ -1,6 +1,4 @@
-/** @typedef {{ label: string, href: string }} NavLink */
-
-/** @type {{ label: string, href: string, children: NavLink[] }[]} */
+/** @type {{ label: string, href: string, children: { label: string, href: string }[] }[]} */
 const nav = [
   {
     label: "Visit",
@@ -18,17 +16,20 @@ const nav = [
       { label: "Our story", href: "/about" },
       { label: "What we believe", href: "/about#beliefs" },
       { label: "Leadership", href: "/about#leadership" },
+      { label: "Departments", href: "/departments" },
     ],
   },
   {
-    label: "Watch",
+    label: "Media",
     href: "/sermons",
     children: [
       { label: "Sermons", href: "/sermons" },
+      { label: "Monthly devotions", href: "/devotions" },
       { label: "Gallery", href: "/gallery" },
     ],
   },
   { label: "Events", href: "/events", children: [] },
+  { label: "Building", href: "/building", children: [] },
   { label: "Contact", href: "/contact", children: [] },
 ];
 
@@ -41,18 +42,9 @@ const services = [
       { time: "10:30 AM", name: "Sunday Service" },
     ],
   },
-  {
-    day: "Monday",
-    items: [{ time: "5:30 PM", name: "Leadership Training" }],
-  },
-  {
-    day: "Tuesday",
-    items: [{ time: "5:30 PM", name: "Prophetic Classes" }],
-  },
-  {
-    day: "Wednesday",
-    items: [{ time: "9:00 AM - 12:00 PM", name: "Fasting & Prayer Service" }],
-  },
+  { day: "Monday", items: [{ time: "6:00 PM", name: "Leadership Training" }] },
+  { day: "Tuesday", items: [{ time: "5:30 PM", name: "Prophetic Classes" }] },
+  { day: "Wednesday", items: [{ time: "9:00 AM - 12:00 PM", name: "Fasting & Prayer Service" }] },
   {
     day: "Thursday",
     items: [
@@ -60,37 +52,96 @@ const services = [
       { time: "5:30 PM", name: "Home Prayer" },
     ],
   },
+  { day: "Friday", items: [{ time: "5:00 PM", name: "Youth Service" }] },
+  { day: "Saturday", items: [{ time: "5:00 AM", name: "General Prayer Meeting" }] },
+];
+
+const monthly = [
   {
-    day: "Friday",
-    items: [{ time: "5:00 PM", name: "Youth Service" }],
+    when: "First Sunday of every month",
+    time: "Evening",
+    name: "Blood / Holy Communion Service",
+  },
+];
+
+/** @type {{ title: string, description: string, accountName: string, bank: string, accountType: string, accountNumber: string, branchCode: string, reference: string, payUrl: string, hidden: boolean }[]} */
+const accounts = [
+  {
+    title: "Offering",
+    description: "Your freewill offering towards the work of the church.",
+    accountName: "General Offering",
+    bank: "Capitec Bank",
+    accountType: "Cheque / Savings",
+    accountNumber: "1054901546",
+    branchCode: "",
+    reference: "Your name + Offering",
+    swiftCode: "",
+    hidden: false,
   },
   {
-    day: "Saturday",
-    items: [{ time: "5:00 AM", name: "General Prayer Meeting" }],
+    title: "Tithe",
+    description: "Return your tithe to the house of the Lord.",
+    accountName: "Tithe & First Fruits",
+    bank: "Capitec Bank",
+    accountType: "Cheque / Savings",
+    accountNumber: "4001858819",
+    branchCode: "",
+    reference: "Your name + Tithe",
+    swiftCode: "",
+    hidden: false,
+  },
+  {
+    title: "Building / Projects",
+    description: "Help us build and develop the church and its projects.",
+    accountName: "Church BUilding Funds",
+    bank: "Capitec Bank",
+    accountType: "Cheque / Savings",
+    accountNumber: "4001858870",
+    branchCode: "",
+    reference: "Your name + Building",
+    swiftCode: "",
+    hidden: false,
+  },
+  {
+    title: "Special Projects",
+    description: "Fixing of musical instruments in the church",
+    accountName: "Special Projects Fund",
+    bank: "Capitec Bank",
+    accountType: "Cheque / Savings",
+    accountNumber: "4001858919",
+    branchCode: "",
+    reference: "Your name",
+    swiftCode: "",
+    hidden: true, // change to false once you have named it and filled in the details
   },
 ];
 
 export const site = {
   name: "Healing Center True Gospel Church",
   tagline: "Your healing is here",
-  address: "True Gospel Church, Cuba Section",
-  mapQuery: "True Gospel Church, Cuba Section",
+  motto: "",
+  vision: "",
+  mission:
+    "To bring healing, hope and the true gospel of Jesus Christ to every person who walks through our doors and to our community.",
+  address: "5649 True Gospel Street, Cuba Section",
+  mapQuery: "True Gospel Church, 5649 True Gospel Street, Cuba Section, South Africa",
   phone: "+27 (81) 273 3341",
+  whatsapp: "", // international format, no + or spaces, e.g. 27821234567
   email: "truegospel.healingcentre@gmail.com",
   social: [
     { label: "Facebook", href: "https://www.facebook.com/share/14bYeAAkG77/" },
-    { label: "TikTok", href: "" },
+    { label: "Instagram", href: "" },
     { label: "YouTube", href: "" },
   ],
   giving: {
-    accountName: "Healing Center True Gospel Church",
-    bank: "First National Bank",
-    accountType: "Cheque Account",
-    accountNumber: "00000000000",
-    branchCode: "250655",
-    reference: "Your name + Tithe / Offering / Seed",
     proofEmail: "truegospel.healingcentre@gmail.com",
+    accounts,
   },
   services,
+  monthly,
   nav,
 };
+
+export const whatsappUrl = site.whatsapp
+  ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent("Hello, I found you through your website.")}`
+  : "";

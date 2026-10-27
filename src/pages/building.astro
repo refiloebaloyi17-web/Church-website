@@ -1,0 +1,61 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { building } from "../data/building";
+
+const photos = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/building/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG}",
+  { eager: true }
+);
+const byName: Record<string, ImageMetadata> = {};
+for (const [p, m] of Object.entries(photos)) {
+  byName[p.split("/").pop() ?? ""] = m.default;
+}
+
+const updates = [...building.updates]
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .map((u) => ({
+    ...u,
+    pretty: new Date(u.date + "T00:00:00").toLocaleDateString("en-ZA", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }),
+    img: u.photo ? byName[u.photo] : undefined,
+  }));
+
+const pct = building.progress === null ? null : Math.max(0, Math.min(100, building.progress));
+---
+<Layout title="Building" description="Progress on our church building project">
+  <div class="container">
+    <h1 class="page-title">{building.title}</h1>
+    <p class="lead">{building.summary}</p>
+
+    {pct !== null && (
+      <div>
+        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={pct} aria-label="Building progress">
+          <div class="progress-bar" style={`width: ${pct}%`}></div>
+        </div>
+        <p class="slot-note">{pct}% complete{building.goal ? `. ${building.goal}` : ""}</p>
+      </div>
+    )}
+
+    <p style="margin: 1.5rem 0 0;">
+      <a class="button" href="/give">Support the building</a>
+    </p>
+
+    <h2 class="section-title">Latest updates</h2>
+    {updates.length === 0 ? (
+      <p>Updates coming soon.</p>
+    ) : (
+      updates.map((u) => (
+        <article class="update">
+          <p class="slot-note">{u.pretty}</p>
+          <h3>{u.title}</h3>
+          <p>{u.text}</p>
+          {u.img && <Image src={u.img} alt={u.title} width={900} loading="lazy" />}
+        </article>
+      ))
+    )}
+  </div>
+</Layout>

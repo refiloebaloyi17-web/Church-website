@@ -115,7 +115,7 @@ body.home .site-header.scrolled { background: var(--oxblood-deep); }
   padding: 0.4rem 0.9rem; font: inherit; font-weight: 600; cursor: pointer;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1100px) {
   .menu-toggle { display: block; }
   .site-header nav {
     display: none; position: absolute; top: 100%; left: 0; right: 0;
@@ -325,3 +325,17 @@ body.home main { padding: 0; }
 .copy:hover { background: var(--oxblood); color: #fff; }
 .steps { margin: 0; padding-left: 1.25rem; }
 .steps li { margin-bottom: 0.6rem; }
+
+.give-desc { margin-bottom: 1rem; }
+.bank dd span { overflow-wrap: anywhere; }
+
+.devotion { padding: 2rem 0; border-top: 1px solid var(--border); max-width: 42rem; }
+.devotion h2 { font-size: clamp(1.9rem, 4.5vw, 2.8rem); margin-bottom: 1rem; }
+.prayer { background: var(--soft); border-left: 5px solid var(--oxblood); padding: 1rem 1.25rem; }
+
+.progress { background: var(--soft); height: 1.6rem; border: 1px solid var(--border); margin: 1.25rem 0 0.5rem; }
+.progress-bar { height: 100%; background: var(--oxblood); }
+
+.update { padding: 1.5rem 0; border-top: 1px solid var(--border); max-width: 46rem; }
+.update h3 { font-size: 1.7rem; margin: 0 0 0.5rem; }
+.update img { max-width: 100%; height: auto; margin-top: 1rem; display: block; }

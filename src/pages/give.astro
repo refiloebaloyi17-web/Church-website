@@ -4,14 +4,22 @@ import { site } from "../data/site";
 
 const g = site.giving;
 
-const rows = [
-  { label: "Account name", value: g.accountName },
-  { label: "Bank", value: g.bank },
-  { label: "Account type", value: g.accountType },
-  { label: "Account number", value: g.accountNumber, copy: true },
-  { label: "Branch code", value: g.branchCode, copy: true },
-  { label: "Reference", value: g.reference },
-];
+const accounts = g.accounts
+  .filter((a) => !a.hidden)
+  .map((a) => ({
+    ...a,
+    ready: Boolean(a.accountNumber),
+    rows: [
+      { label: "Account name", value: a.accountName },
+      { label: "Bank", value: a.bank },
+      { label: "Account type", value: a.accountType },
+      { label: "Account number", value: a.accountNumber, copy: true },
+      { label: "Branch code", value: a.branchCode, copy: true },
+      { label: "Reference", value: a.reference },
+    ].filter((r) => r.value),
+  }));
+
+const hasCard = accounts.some((a) => a.payUrl);
 ---
 <Layout title="Give" description="Support the work of the church">
   <div class="container">
@@ -21,41 +29,53 @@ const rows = [
       and helps us reach our community with hope and healing.
     </p>
 
-    <div class="give-grid">
-      <section class="card">
-        <h2 class="card-day-title">Give by EFT</h2>
-        <dl class="bank">
-          {rows.map((r) => (
-            <div class="bank-row">
-              <dt>{r.label}</dt>
-              <dd>
-                <span>{r.value}</span>
-                {r.copy && (
-                  <button type="button" class="copy" data-copy={r.value}>Copy</button>
-                )}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
-      <aside class="card">
-        <h2 class="card-day-title">How to give</h2>
-        <ol class="steps">
-          <li>Log in to your banking app.</li>
-          <li>Add the account above as a beneficiary.</li>
-          <li>Use your name and the type of giving (Tithe, Offering or Seed) as the reference.</li>
-          <li>
-            Email your proof of payment to
-            <a href={`mailto:${g.proofEmail}`}>{g.proofEmail}</a>
-            if you would like a record.
-          </li>
-        </ol>
-      </aside>
+    <div class="cards">
+      {accounts.map((a) => (
+        <section class="card">
+          <h2 class="card-day-title">{a.title}</h2>
+          {a.description && <p class="slot-note give-desc">{a.description}</p>}
+          {a.ready ? (
+            <dl class="bank">
+              {a.rows.map((r) => (
+                <div class="bank-row">
+                  <dt>{r.label}</dt>
+                  <dd>
+                    <span>{r.value}</span>
+                    {r.copy && (
+                      <button type="button" class="copy" data-copy={r.value}>Copy</button>
+                    )}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          ) : (
+            <p>Bank details coming soon.</p>
+          )}
+          {a.payUrl && (
+            <p style="margin-top: 1rem;">
+              <a class="button" href={a.payUrl} target="_blank" rel="noopener">Give by card</a>
+            </p>
+          )}
+        </section>
+      ))}
     </div>
 
-    <blockquote class="theme-quote">
-      “Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver.” 2 Corinthians 9:7
+    <h2 class="section-title">How to give</h2>
+    <ol class="steps">
+      <li>Choose the account that matches your giving.</li>
+      <li>Give by EFT: add the account as a beneficiary in your banking app and use your name and the type of giving as the reference.</li>
+      {hasCard && (
+        <li>Give by card: tap <strong>Give by card</strong>. You will pay on a secure page run by our payment provider. We never see or store your card details.</li>
+      )}
+      <li>
+        Email your proof of payment to
+        <a href={`mailto:${g.proofEmail}`}>{g.proofEmail}</a>
+        if you would like a record.
+      </li>
+    </ol>
+
+    <blockquote class="theme-quote" style="margin-top: 2.5rem;">
+      “God loves a cheerful giver.” 2 Corinthians 9:7
     </blockquote>
   </div>
 </Layout>

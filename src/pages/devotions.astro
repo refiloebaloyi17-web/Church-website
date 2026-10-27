@@ -1,0 +1,34 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { devotions } from "../data/devotions";
+
+const list = [...devotions]
+  .sort((a, b) => b.month.localeCompare(a.month))
+  .map((d) => ({
+    ...d,
+    pretty: new Date(d.month + "-01T00:00:00").toLocaleDateString("en-ZA", {
+      month: "long",
+      year: "numeric",
+    }),
+  }));
+---
+<Layout title="Monthly devotions" description="A devotion for every month">
+  <div class="container">
+    <h1 class="page-title">Monthly devotions</h1>
+    <p class="lead">A word for the month from our church family to yours.</p>
+
+    {list.length === 0 ? (
+      <p>This month's devotion is coming soon.</p>
+    ) : (
+      list.map((d) => (
+        <article class="devotion" id={d.month}>
+          <p class="slot-note">{d.pretty}{d.scripture ? `, ${d.scripture}` : ""}</p>
+          <h2>{d.title}</h2>
+          {d.body.map((p) => <p>{p}</p>)}
+          {d.prayer && <p class="prayer"><strong>Prayer:</strong> {d.prayer}</p>}
+          {d.pdf && <p><a href={d.pdf}>Download as PDF</a></p>}
+        </article>
+      ))
+    )}
+  </div>
+</Layout>
