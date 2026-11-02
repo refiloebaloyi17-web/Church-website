@@ -135,8 +135,8 @@ export const site = {
   vision: "",
   mission:
     "To bring healing, hope and the true gospel of Jesus Christ to every person who walks through our doors and to our community.",
-  address: "5649 True Gospel Street, Cuba Section, Lethabong, 0263",
-  mapQuery: "True Gospel Church, 5649 True Gospel Street, Cuba Section, Lethabong, 0263, South Africa",
+  address: "True Gospel Street, 5649 Cuba Section, Lethabong, 0250",
+  mapQuery: "True Gospel Street, 5649 Cuba Section, Lethabong, 0250",
   phone: "+27 (81) 273 3341",
   whatsapp: "", // international format, no + or spaces, e.g. 27821234567
   email: "truegospel.healingcentre@gmail.com",
